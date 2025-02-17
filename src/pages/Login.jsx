@@ -38,6 +38,10 @@ const Login = () => {
     }
   };
 
+  const redicteToRegister = () => {
+    navigate("/register");
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -105,6 +109,23 @@ const Login = () => {
             disabled={loading} // Disable button while loading
           >
             {loading ? "Logging in..." : "Login"}
+          </Button>
+        </Box>
+        <Box>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "gray", color: "#fff" }}
+            sx={{
+              mt: 3,
+              color: "gray",
+              "&:hover": { bgcolor: "primary.dark" },
+            }}
+            fullWidth
+            // sx={{ mt: 2 }}
+            onClick={redicteToRegister}
+            disabled={loading} // Disable button while loading
+          >
+            Register
           </Button>
         </Box>
       </Box>

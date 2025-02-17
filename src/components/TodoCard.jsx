@@ -1,9 +1,5 @@
-import React from 'react'
-
 const TodoCard = () => {
-  return (
-    <div>TodoCard</div>
-  )
-}
+  return <div>TodoCard</div>;
+};
 
-export default TodoCard
+export default TodoCard;
