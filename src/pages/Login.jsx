@@ -45,8 +45,6 @@ const Login = () => {
     }
   };
 
-  const redirectToRegister = () => navigate("/register");
-
   return (
     <Container component="main" maxWidth="xs" sx={{ mt: 6 }}>
       <Card elevation={6} sx={{ borderRadius: 4, bgcolor: "#f5f7fa" }}>
@@ -110,16 +108,6 @@ const Login = () => {
                 {loading ? "Logging in..." : "Login"}
               </Button>
             </Box>
-            {/* <Button
-          variant="contained"
-          color="secondary"
-          fullWidth
-          sx={{ mt: 3 }}
-          onClick={redirectToRegister}
-          disabled={loading}
-        >
-          Register
-        </Button> */}
             <Button
               variant="outlined"
               onClick={() => navigate("/register")}

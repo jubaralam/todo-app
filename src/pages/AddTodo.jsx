@@ -4,7 +4,6 @@ import axios from "axios";
 import {
   Card,
   CardContent,
-  CardHeader,
   TextField,
   Select,
   MenuItem,
@@ -12,6 +11,8 @@ import {
   Typography,
   FormControl,
   InputLabel,
+  Container,
+  Box,
 } from "@mui/material";
 
 const AddTodo = () => {
@@ -63,96 +64,114 @@ const AddTodo = () => {
   };
 
   return (
-    <Card
-      sx={{ maxWidth: 500, margin: "auto", marginTop: 5, padding: 3, boxShadow: 5 }}
-    >
-      <CardHeader
-        title="Add New Todo"
-        sx={{ textAlign: "center", color: "#1976D2" }}
-      />
-      <CardContent>
-        {error && (
-          <Typography color="error" sx={{ marginBottom: 2 }}>
-            {error}
-          </Typography>
-        )}
-
-        <form
-          onSubmit={handleAdd}
-          style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-        >
-          <TextField
-            label="Title"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            required
-            fullWidth
-          />
-
-          <TextField
-            label="Description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            multiline
-            rows={4}
-            required
-            fullWidth
-          />
-
-          <FormControl fullWidth>
-            <InputLabel>Priority</InputLabel>
-            <Select
-              name="priority"
-              value={formData.priority}
-              onChange={handleChange}
-              required
-            >
-              <MenuItem value="urgent_important">Urgent Important</MenuItem>
-              <MenuItem value="urgent_not_important">Urgent Not Important</MenuItem>
-              <MenuItem value="important_not_urgent">Important Not Urgent</MenuItem>
-              <MenuItem value="neither">Neither</MenuItem>
-            </Select>
-          </FormControl>
-
-          <TextField
-            type="date"
-            label="Due Date"
-            name="dueDate"
-            value={formData.dueDate}
-            onChange={handleChange}
-            InputLabelProps={{ shrink: true }}
-            required
-            fullWidth
-          />
-
-          <FormControl fullWidth>
-            <InputLabel>Status</InputLabel>
-            <Select
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-              required
-            >
-              <MenuItem value="pending">Pending</MenuItem>
-              <MenuItem value="in-progress">In Progress</MenuItem>
-              <MenuItem value="completed">Completed</MenuItem>
-            </Select>
-          </FormControl>
-
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={loading}
-            sx={{ padding: "12px" }}
+    <Container component="main" maxWidth="md" sx={{ mt: 6 }}>
+      <Card elevation={6} sx={{ borderRadius: 4, bgcolor: "#f5f7fa" }}>
+        <CardContent>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 3,
+            }}
           >
-            {loading ? "Adding..." : "Add Todo"}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+            <Typography variant="h5" sx={{ mb: 2 }}>
+              Add New Todo
+            </Typography>
+            {error && (
+              <Typography color="error" sx={{ marginBottom: 2 }}>
+                {error}
+              </Typography>
+            )}
+          </Box>
+
+          <CardContent>
+            <form
+              onSubmit={handleAdd}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
+            >
+              <TextField
+                label="Title"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                required
+                fullWidth
+              />
+
+              <TextField
+                label="Description"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                multiline
+                rows={4}
+                required
+                fullWidth
+              />
+
+              <FormControl fullWidth>
+                <InputLabel>Priority</InputLabel>
+                <Select
+                  name="priority"
+                  value={formData.priority}
+                  onChange={handleChange}
+                  required
+                >
+                  <MenuItem value="urgent_important">Urgent Important</MenuItem>
+                  <MenuItem value="urgent_not_important">
+                    Urgent Not Important
+                  </MenuItem>
+                  <MenuItem value="important_not_urgent">
+                    Important Not Urgent
+                  </MenuItem>
+                  <MenuItem value="neither">Neither</MenuItem>
+                </Select>
+              </FormControl>
+
+              <TextField
+                type="date"
+                label="Due Date"
+                name="dueDate"
+                value={formData.dueDate}
+                onChange={handleChange}
+                InputLabelProps={{ shrink: true }}
+                required
+                fullWidth
+              />
+
+              <FormControl fullWidth>
+                <InputLabel>Status</InputLabel>
+                <Select
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  required
+                >
+                  <MenuItem value="pending">Pending</MenuItem>
+                  <MenuItem value="in-progress">In Progress</MenuItem>
+                  <MenuItem value="completed">Completed</MenuItem>
+                </Select>
+              </FormControl>
+
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={loading}
+                sx={{ padding: "12px" }}
+              >
+                {loading ? "Adding..." : "Add Todo"}
+              </Button>
+            </form>
+          </CardContent>
+        </CardContent>
+      </Card>
+    </Container>
   );
 };
 

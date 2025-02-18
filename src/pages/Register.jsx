@@ -31,6 +31,7 @@ const Register = () => {
         `https://todo-app-backend-v402.onrender.com/api/user/register`,
         { name, email, password }
       );
+
       navigate("/login");
     } catch (error) {
       setError(error.message);
