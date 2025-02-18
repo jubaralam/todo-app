@@ -3,8 +3,11 @@ import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ProtectedRoutes from "./ProtectedRoutes";
+import TodoUpdate from "../pages/TodoUpdate";
+import AddTodo from "../pages/AddTodo";
 
 const Routers = () => {
+  TodoUpdate;
   ProtectedRoutes;
   return (
     <Routes>
@@ -13,6 +16,8 @@ const Routers = () => {
 
       <Route element={<ProtectedRoutes />}></Route>
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/update/:id" element={<TodoUpdate />} />
+      <Route path="/dashboard/add" element={<AddTodo />} />
     </Routes>
   );
 };
