@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Box,
+  CardContent,
+  Card,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,122 +20,116 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Simple validation for email and password
     if (!email || !password) {
       setError("Both fields are required!");
       return;
     }
     setLoading(true);
+
     try {
       const res = await axios.post(
-        `https://todo-app-backend-v402.onrender.com/api/user/login`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/login`,
         { email, password }
       );
-      console.log(res);
-      console.log(res.data.token);
-      console.log(res.data.user);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      navigate("/dashboard"); // Redirect to dashboard
-    } catch (error) {
+      const { token, user } = res.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate("/dashboard");
+    } catch (err) {
+      setError(
+        err.response?.data?.message || "Failed to login. Please try again."
+      );
+    } finally {
       setLoading(false);
-      setError(error.message);
     }
   };
 
-  const redicteToRegister = () => {
-    navigate("/register");
-  };
+  const redirectToRegister = () => navigate("/register");
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          marginTop: 8,
-        }}
-      >
-        <Typography variant="h5">Login</Typography>
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{
-            mt: 1,
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-          }}
-        >
-          {/* Email Input */}
-          <TextField
-            label="Email"
-            variant="outlined"
-            type="email"
-            fullWidth
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          {/* Password Input */}
-          <TextField
-            label="Password"
-            variant="outlined"
-            type="password"
-            fullWidth
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          {/* Error Message */}
-          {error && <Typography color="error">{error}</Typography>}
-
-          {/* Submit Button */}
-          {/* <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            sx={{ mt: 2 }}
-          >
-            Login
-          </Button> */}
-
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            sx={{ mt: 2 }}
-            disabled={loading} // Disable button while loading
-          >
-            {loading ? "Logging in..." : "Login"}
-          </Button>
-        </Box>
-        <Box>
-          <Button
-            variant="contained"
-            style={{ backgroundColor: "gray", color: "#fff" }}
+    <Container component="main" maxWidth="xs" sx={{ mt: 6 }}>
+      <Card elevation={6} sx={{ borderRadius: 4, bgcolor: "#f5f7fa" }}>
+        <CardContent>
+          <Box
             sx={{
-              mt: 3,
-              color: "gray",
-              "&:hover": { bgcolor: "primary.dark" },
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 3,
             }}
-            fullWidth
-            // sx={{ mt: 2 }}
-            onClick={redicteToRegister}
-            disabled={loading} // Disable button while loading
           >
-            Register
-          </Button>
-        </Box>
-      </Box>
+            {" "}
+            <Typography variant="h5" sx={{ mb: 2 }}>
+              Have an account? log in.
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+              }}
+            >
+              <TextField
+                label="Email"
+                variant="outlined"
+                type="email"
+                fullWidth
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
+                autoComplete="email"
+              />
+
+              <TextField
+                label="Password"
+                variant="outlined"
+                type="password"
+                fullWidth
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={loading}
+                autoComplete="current-password"
+              />
+
+              {error && <Typography color="error">{error}</Typography>}
+
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{ mt: 2 }}
+                disabled={loading}
+              >
+                {loading ? "Logging in..." : "Login"}
+              </Button>
+            </Box>
+            {/* <Button
+          variant="contained"
+          color="secondary"
+          fullWidth
+          sx={{ mt: 3 }}
+          onClick={redirectToRegister}
+          disabled={loading}
+        >
+          Register
+        </Button> */}
+            <Button
+              variant="outlined"
+              onClick={() => navigate("/register")}
+              sx={{ width: "100%", mt: 2, py: 1, borderRadius: 3 }}
+            >
+              Don't have an account? Sign up now!
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
     </Container>
   );
 };

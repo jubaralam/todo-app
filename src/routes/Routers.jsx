@@ -8,18 +8,17 @@ import AddTodo from "../pages/AddTodo";
 import Home from "../pages/Home";
 
 const Routers = () => {
-  TodoUpdate;
-  ProtectedRoutes;
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      <Route element={<ProtectedRoutes />}></Route>
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/dashboard/update/:id" element={<TodoUpdate />} />
-      <Route path="/dashboard/add" element={<AddTodo />} />
+      <Route element={<ProtectedRoutes />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/update/:id" element={<TodoUpdate />} />
+        <Route path="/dashboard/add" element={<AddTodo />} />
+      </Route>
     </Routes>
   );
 };
