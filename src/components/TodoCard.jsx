@@ -12,6 +12,7 @@ const TodoCard = ({
   dueDate,
   status,
   token,
+  setDeleteId,
 }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -48,7 +49,8 @@ const TodoCard = ({
         { isDeleted: true },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      toast.success(res.data.message);
+      toast.success("Todo Has been Deleted");
+      setDeleteId(_id);
     } catch (error) {
       toast.error("Failed to delete task.");
     } finally {

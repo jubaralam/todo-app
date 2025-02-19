@@ -14,6 +14,7 @@ import {
   Container,
   Box,
 } from "@mui/material";
+import { toast } from "react-toastify";
 
 const AddTodo = () => {
   const navigate = useNavigate();
@@ -54,7 +55,8 @@ const AddTodo = () => {
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert(res.data.message);
+      // alert(res.data.message);
+      toast.success(res.data.message);
       navigate("/dashboard");
     } catch (error) {
       setError(error?.response?.data?.message || "Failed to add todo.");

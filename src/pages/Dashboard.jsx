@@ -3,10 +3,12 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import TodoCard from "../components/TodoCard";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
 
 const Dashboard = () => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [deleteId, setDeleteId] = useState("");
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
   const [todos, setTodos] = useState([]);
@@ -64,6 +66,13 @@ const Dashboard = () => {
     if (token) getTodos();
   }, [token]);
 
+  useEffect(() => {
+    if (deleteId) {
+      const filteredData = todos.filter((todo) => todo._id !== deleteId);
+      setTodos(filteredData);
+    }
+  }, [deleteId]);
+
   // Loading state
   if (loading) {
     return (
@@ -88,39 +97,48 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <div className="flex justify-between items-center">
         <h2>Dashboard, Welcome {user?.name}</h2>
-        <button
-          onClick={handleAddTodo}
-          style={{
-            padding: "8px 12px",
-            backgroundColor: "green",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
-          Add
-        </button>
-        <button
-          onClick={handleLogout}
-          style={{
-            padding: "8px 12px",
-            backgroundColor: "red",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
-          Logout
-        </button>
+        <Box>
+          <button
+            onClick={handleAddTodo}
+            style={{
+              padding: "8px 12px",
+              backgroundColor: "green",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              margin: "10px 15px",
+            }}
+          >
+            Add
+          </button>
+          <button
+            onClick={handleLogout}
+            style={{
+              padding: "8px 12px",
+              backgroundColor: "red",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              margin: "10px 15px",
+            }}
+          >
+            Logout
+          </button>
+        </Box>
       </div>
       {error && <div style={{ color: "red", margin: "10px 0" }}>{error}</div>}
 
       <div className="card-container">
         {todos.length > 0 ? (
           todos.map((todo) => (
-            <TodoCard key={todo._id} {...todo} token={token} />
+            <TodoCard
+              key={todo._id}
+              {...todo}
+              token={token}
+              setDeleteId={setDeleteId}
+            />
           ))
         ) : (
           <p>No todos available.</p>
