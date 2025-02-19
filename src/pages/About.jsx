@@ -1,16 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import { Box, Container, Typography } from "@mui/material";
 
-const Home = () => {
-  const navigate = useNavigate();
-  const [error, setError] = useState("");
 
-  // Handle login (simulating token storage in localStorage)
-  const handleLogin = () => {
-    navigate("/login");
-  };
+const About = () => {
+
 
   return (
     <Container
@@ -36,13 +28,11 @@ const Home = () => {
           🚧 Coming Soon!
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Something incredible is on the way! 🚀 We're working tirelessly to
-          bring you an amazing experience. Stay tuned for the big reveal! In the
-          meantime, check out the Login and explore the Dashboard.
+          We're working hard to bring you something amazing. Stay tuned!
         </Typography>
       </Box>
     </Container>
   );
 };
 
-export default Home;
+export default About;

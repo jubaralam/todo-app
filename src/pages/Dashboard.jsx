@@ -3,7 +3,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import TodoCard from "../components/TodoCard";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Card, Container } from "@mui/material";
 
 const Dashboard = () => {
   const [token, setToken] = useState(null);
@@ -23,6 +23,7 @@ const Dashboard = () => {
       if (storedUser) setUser(storedUser);
       if (storedToken) setToken(storedToken);
     } catch (error) {
+      console.log(error.message)
       setError("Failed to fetch user details.");
     } finally {
       setLoading(false);
@@ -94,57 +95,63 @@ const Dashboard = () => {
 
   // Display UI
   return (
-    <div className="dashboard-container">
-      <div className="flex justify-between items-center">
-        <h2>Dashboard, Welcome {user?.name}</h2>
-        <Box>
-          <button
-            onClick={handleAddTodo}
-            style={{
-              padding: "8px 12px",
-              backgroundColor: "green",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              margin: "10px 15px",
-            }}
-          >
-            Add
-          </button>
-          <button
-            onClick={handleLogout}
-            style={{
-              padding: "8px 12px",
-              backgroundColor: "red",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              margin: "10px 15px",
-            }}
-          >
-            Logout
-          </button>
-        </Box>
-      </div>
-      {error && <div style={{ color: "red", margin: "10px 0" }}>{error}</div>}
+    <Container component="main" maxWidth="md" sx={{ mt: 6 }}>
+      <Card elevation={6} sx={{ borderRadius: 4, bgcolor: "#f5f7fa" }}>
+        <div className="dashboard-container">
+          <div className="flex justify-between items-center">
+            <h2>Dashboard, Welcome {user?.name}</h2>
+            <Box>
+              <button
+                onClick={handleAddTodo}
+                style={{
+                  padding: "8px 12px",
+                  backgroundColor: "green",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  margin: "10px 15px",
+                }}
+              >
+                Add
+              </button>
+              <button
+                onClick={handleLogout}
+                style={{
+                  padding: "8px 12px",
+                  backgroundColor: "red",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  margin: "10px 15px",
+                }}
+              >
+                Logout
+              </button>
+            </Box>
+          </div>
+          {error && (
+            <div style={{ color: "red", margin: "10px 0" }}>{error}</div>
+          )}
 
-      <div className="card-container">
-        {todos.length > 0 ? (
-          todos.map((todo) => (
-            <TodoCard
-              key={todo._id}
-              {...todo}
-              token={token}
-              setDeleteId={setDeleteId}
-            />
-          ))
-        ) : (
-          <p>No todos available.</p>
-        )}
-      </div>
-    </div>
+          <div className="card-container">
+            {todos.length > 0 ? (
+              todos.map((todo) => (
+                <TodoCard
+                  key={todo._id}
+                  {...todo}
+                  token={token}
+                  setDeleteId={setDeleteId}
+                />
+              ))
+            ) : (
+              <p>No todos available.</p>
+            )}
+          </div>
+        </div>
+      </Card>
+    </Container>
   );
 };
 

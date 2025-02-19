@@ -60,20 +60,24 @@ const TodoCard = ({
 
   return (
     <div className={`card ${priority?.toLowerCase()}`}>
+      <div className="flex justify-between flex-wrap">
       <div className="priority-tag">
         <h4>{priority.replace(/_/g, " ").toUpperCase()}</h4>
         {isOverdue && <span className="overdue-tag">🚨 Overdue</span>}
       </div>
+      <div className="card-status">
+        <p className={`status ${status?.toLowerCase()}`}>{status}</p>
+        <p className="due-date">📅 {new Date(dueDate).toLocaleDateString()}</p>
+      </div>
 
+
+      </div>
       <div className="card-details">
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
 
-      <div className="card-status">
-        <p className={`status ${status?.toLowerCase()}`}>{status}</p>
-        <p className="due-date">📅 {new Date(dueDate).toLocaleDateString()}</p>
-      </div>
+      
 
       <div className="card-actions">
         <button

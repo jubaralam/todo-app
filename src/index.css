@@ -3,6 +3,24 @@
   padding: 0;
 }
 
+.flex {
+  display: flex;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.align-center {
+  align-items: center;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.w-full {
+  width: 100%;
+}
+.h-screen {
+  height: 100%;
+}
 .dashboard-container {
   background-color: #f7f9fb;
   min-height: 100vh;
@@ -21,20 +39,24 @@
 .card {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column;
+
+  min-width: 100%;
+
+  box-sizing: border-box;
   flex-wrap: wrap;
-  margin: 15px 10px;
+  margin: 15px auto;
   padding: 15px 10px;
   background-color: white;
   border: 1px solid rgb(218, 218, 218);
   border-radius: 10px;
   text-transform: capitalize;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .card-details {
-  max-width: 350px;
-  width: 350px;
+  /* max-width: 350px;
+  width: 350px; */
 }
 
 .card h2 {
